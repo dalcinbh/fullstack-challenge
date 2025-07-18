@@ -1,0 +1,71 @@
+{
+  "info": {
+    "_postman_id": "650dca52-1b03-4580-aa14-236da85efe1f",
+    "name": "IA-TEXT-ANALYSIS",
+    "description": "# Text Analysis API Collection\n\nThis collection provides comprehensive testing for the AI-powered Text Analysis API built with Node.js, Express, and OpenAI integration.\n\n## Features\n- **Language Detection**: Identifies the language/idiom of input text\n- **Sentiment Analysis**: Classifies text as positive, negative, or neutral\n- **Word Frequency Analysis**: Counts and categorizes all words\n- **Stopword Filtering**: Separates content words from common stopwords\n- **Top Words Identification**: Returns the 5 most frequent non-stopwords\n- **Term Search**: Searches for specific terms in previously analyzed text\n\n## API Endpoints\n\n### POST /api/analyze-text\nSends text for comprehensive AI analysis using OpenAI GPT-3.5-turbo\n\n### GET /api/search-term\nSearches for a term in the last analyzed text (requires prior analysis)\n\n## Usage Instructions\n1. Set the `base_url` variable to your API server URL\n2. Run 'Analyze Text' request first to process some text\n3. Use 'Search Term' request to search within the analyzed text\n\n## Authentication\nRequires OpenAI API key to be configured in the backend environment (.env file)\n\n## Database\nUses SQLite for persistent storage of analysis results",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Analyze Text",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"I love programming programming with Node.js and building APIs with Express\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/analyze-text",
+          "host": ["{{base_url}}"],
+          "path": ["api", "analyze-text"]
+        },
+        "description": "Sends text to the AI-powered analysis API. Returns comprehensive analysis including:\n- Language detection (idiom)\n- Sentiment analysis (positive/negative/neutral)\n- Word frequency analysis with stopword filtering\n- Top 5 most frequent non-stopwords\n- Complete categorized word lists\n\nExpected Response:\n```json\n{\n  \"idiom\": \"English\",\n  \"sentiment\": \"positive\",\n  \"total_words\": 12,\n  \"top_5_words\": [\n    {\"word\": \"programming\", \"count\": 2, \"isStopWord\": false}\n  ],\n  \"non_stopwords\": [...],\n  \"stopwords\": [...]\n}\n```"
+      },
+      "response": []
+    },
+    {
+      "name": "Search Term",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/search-term?term=programming",
+          "host": ["{{base_url}}"],
+          "path": ["api", "search-term"],
+          "query": [
+            {
+              "key": "term",
+              "value": "programming",
+              "description": "The search term to look for in the last analyzed text (case-sensitive)"
+            }
+          ]
+        },
+        "description": "Searches for a specific term in the last analyzed text stored in the database.\n\nRequirements:\n- Must run 'Analyze Text' request first to have text in database\n- Search is case-sensitive\n- Returns boolean indicating if term was found\n\nQuery Parameters:\n- `term` (required): The word or phrase to search for\n\nExpected Response:\n```json\n{\n  \"term\": \"programming\",\n  \"termFoundedInLastAnalysis\": true\n}\n```\n\nError Cases:\n- 400: Missing 'term' parameter\n- 404: No previous analysis found in database"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000",
+      "description": "Base URL for the Text Analysis API server. Default is localhost:5000 for local development. Change this to your deployed server URL if testing a remote instance."
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+<!--
+  HTML Template for React Text Analyzer Application
+  
+  This file serves as the base HTML template for the React application.
+  React components will be dynamically rendered into the #root div element.
+  The build process injects the necessary JavaScript and CSS files automatically.
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Character encoding declaration for proper text rendering -->
+    <meta charset="utf-8" />
+    
+    <!-- Viewport meta tag for responsive design on mobile devices -->
+    <!-- Sets initial zoom level and ensures proper scaling across devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Theme color for browser UI elements (address bar, etc.) -->
+    <!-- Used by some browsers and PWA installations -->
+    <meta name="theme-color" content="#000000" />
+    
+    <!-- SEO description meta tag for search engines and social media -->
+    <!-- Provides a summary of the application's functionality -->
+    <meta
+      name="description"
+      content="This is a simple frontend to analyze text, return the idiom, sentiment, and words with stopword info"
+    />
+    
+    <!-- Page title displayed in browser tab and bookmarks -->
+    <title>Text Analyzer</title>
+  </head>
+  <body>
+    <!-- Fallback message for users with JavaScript disabled -->
+    <!-- React applications require JavaScript to function properly -->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    <!-- Root container div where React will mount the entire application -->
+    <!-- This is the target element referenced in src/index.js -->
+    <div id="root"></div>
+  </body>
+</html>
