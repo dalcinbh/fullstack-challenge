@@ -36,4 +36,3 @@ simple-frontend/build/
 *.log
 database/
 database.sqlite
-zip.sh
